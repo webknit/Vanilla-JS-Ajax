@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+ 
+<head>
+	
+	<meta charset="utf-8">
+	
+	<script type="text/javascript">
+	
+		// Create new XMLHttpRequest object to allow me to communicate with the server
+		var xhr = new XMLHttpRequest();
+		
+		// When the state changes then do something
+		xhr.onreadystatechange = function() {
+		
+			// If it's readystate 4 then the server has finished and got the stuff you wanted
+			// "complete and response received"
+			if(xhr.readyState === 4) {
+			
+				// 200 status indicates if server response is ok.
+				// A status >= 500 (5xx) the server had an error
+				// between 400 and 499 (4xx) then this is a client error (Ex: 404 page not found)
+				// between 300 and 399 (3xx) then exists a redirect
+				// between 200 and 299 (2xx) then it is correct and lower than 200 (1xx) means information message
+				// http://stackoverflow.com/questions/17561463/readystate-vs-status-200
+				if (xhr.status == 200) {
+				
+					// Show the box
+				  	document.getElementById('response').style.display = "block";
+				  	
+				  	// Add the response text to the element
+					document.getElementById('response').innerHTML = xhr.responseText;
+					
+					// Hide the button
+					document.getElementById('btn').style.display = "none";
+				  
+				}
+			
+			}
+		
+		};
+		
+		//Specifies the type of request and the URL.
+		xhr.open('GET', 'ajax.html');
+		
+		// the Ajax send function is called when callIt() shoots.
+		function callIt() {
+		
+			xhr.send();
+		
+		}
+
+	</script>
+	
+	<style type="text/css">
+	
+		.main-body {
+			margin: 2em auto 0;
+			max-width: 700px;
+		}
+		
+		#response {
+			background: red;
+			color: white;
+			display: none;
+			padding: 10px;
+		}
+	
+	</style>
+	
+</head>
+
+<body> 
+	
+	<div class="main-body">
+
+		<h1>Vanilla-JS-Ajax</h1>
+		
+		<p>Small bit of code pulling a HTML module in with vanilla JS. Used to doing it with jQuery so I fancied a bash at this. Obviously this is only going to work on a server if you're downloading it.</p>
+		
+		<div id="response"></div>
+		
+		<button id="btn" onclick="callIt()">Hit me</button>
+
+		<br><br>
+        <a href="http://function.webknit.co.uk/">www.function.webknit.co.uk</a>
+
+	</div><!-- .main-body -->
+
+</body>
+</html>
+
